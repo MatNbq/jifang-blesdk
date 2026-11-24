@@ -1,0 +1,72 @@
+plugins {
+    alias(libs.plugins.android.library)
+    id 'maven-publish'
+}
+
+android {
+    namespace 'com.shenghao.blesdk'
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 24
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+    // AGP 8+ 要求：声明要发布的 variant，才会创建 components.release
+    publishing {
+        singleVariant("release")
+    }
+}
+
+dependencies {
+    api libs.appcompat
+
+    // 蓝牙（api 传递，宿主可直接使用 BleDevice / BleScanCallback 等类型）
+    api 'com.github.Jasonchenlijian:FastBle:2.4.0'
+
+    // 事件总线（蓝牙连接状态分发，宿主可订阅 BleStatusEvent）
+    api 'org.greenrobot:eventbus:3.1.1'
+
+    // 网络（4G 车控，api 传递，宿主可实现 OkHttpResultCallBack）
+    api 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    api 'com.squareup.okhttp3:okhttp:4.9.3'
+
+    // JSON
+    api "com.alibaba:fastjson:1.2.83"
+    api 'com.google.code.gson:gson:2.10.1'
+
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}
+
+// 本地默认坐标（仅用于本地 publishToMavenLocal 验证；
+// JitPack 构建时会注入其自己的 group/version，覆盖这里的值）
+group = 'com.shenghao.blesdk'
+version = '1.0.0'
+
+// JitPack / Maven 发布：发布 release 构建产物（aar + pom）
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+            }
+        }
+    }
+}

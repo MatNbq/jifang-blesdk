@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- ============ 配置区（默认隐藏，需要时把 visibility 改为 visible） ============ -->
+        <LinearLayout
+            android:id="@+id/section_config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SDK 配置"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp" />
+
+            <EditText
+                android:id="@+id/et_token"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="token（4G 登录态）"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_imei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="imei（可留空，SDK 自动生成）"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_terminal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="terminalNo（设备号，蓝牙过滤 + 车控默认设备）"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_host"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="serverHost（可留空，使用默认）"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btn_apply_config"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用配置" />
+        </LinearLayout>
+
+        <!-- ============ 蓝牙区 ============ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝牙 BleSdk"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/tv_conn_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="蓝牙：未连接"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_perm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请求权限" />
+            <Button
+                android:id="@+id/btn_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始扫描" />
+            <Button
+                android:id="@+id/btn_stop_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="停止扫描" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lv_devices"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="4dp"
+            android:background="#eeeeee" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="连接选中" />
+            <Button
+                android:id="@+id/btn_disconnect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="断开选中" />
+            <Button
+                android:id="@+id/btn_disconnect_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="断开全部" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开启通知" />
+            <Button
+                android:id="@+id/btn_stop_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="停止通知" />
+            <Button
+                android:id="@+id/btn_auto_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自动连开" />
+            <Button
+                android:id="@+id/btn_auto_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自动连关" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AT 指令（如 AT+RSSI?）"
+            android:textSize="12sp"
+            android:layout_marginTop="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_at"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="AT+RSSI?"
+                android:text="AT+RSSI?"
+                android:textSize="13sp" />
+            <Button
+                android:id="@+id/btn_send_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送AT" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义指令（flag/code 十六进制，如 00 / 01）"
+            android:textSize="12sp"
+            android:layout_marginTop="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_flag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="flag hex"
+                android:text="00"
+                android:textSize="13sp" />
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="code hex"
+                android:text="01"
+                android:textSize="13sp" />
+            <Button
+                android:id="@+id/btn_send_cmd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生成并发送" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置 RSSI 档位"
+            android:textSize="12sp"
+            android:layout_marginTop="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_rssi_weak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WEAK" />
+            <Button
+                android:id="@+id/btn_rssi_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MIDDLE" />
+            <Button
+                android:id="@+id/btn_rssi_strong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STRONG" />
+            <Button
+                android:id="@+id/btn_connected_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已连接列表" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝牙挪车（先连接设备，再「开启挪车模式」）"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btn_move_start" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开启挪车模式" />
+            <Button android:id="@+id/btn_move_stop_mode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="恢复手动(停止)" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btn_move_forward" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="前进" />
+            <Button android:id="@+id/btn_move_backward" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="后退" />
+            <Button android:id="@+id/btn_move_stop" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="停止" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btn_move_left" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="左转" />
+            <Button android:id="@+id/btn_move_right" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="右转" />
+            <Button android:id="@+id/btn_move_center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="回正" />
+            <TextView
+                android:id="@+id/tv_move_angle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="角度:0"
+                android:textSize="13sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- ============ 4G 车控区（默认隐藏，需要时把 visibility 改为 visible） ============ -->
+        <LinearLayout
+            android:id="@+id/section_4g"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <!-- ============ 4G 车控区 ============ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4G 车控（设备号取上方配置）"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_get_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询车控状态" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_cc_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="类型"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_cc_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="状态"
+                android:textSize="12sp" />
+            <Button
+                android:id="@+id/btn_set_control"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置车控" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车控（字符串版）：类型 07空调 0B车窗 06尾门 21制冷 27灯光"
+            android:textSize="11sp"
+            android:layout_marginTop="4dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText android:id="@+id/et_ac_type" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="类型" android:text="07" android:textSize="12sp" />
+            <EditText android:id="@+id/et_ac_param" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="参数" android:text="1" android:textSize="12sp" />
+            <EditText android:id="@+id/et_ac_angle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="角度" android:text="" android:textSize="12sp" />
+            <Button android:id="@+id/btn_air_control" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="车控" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车控2（int 版，带角度）"
+            android:textSize="11sp"
+            android:layout_marginTop="4dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText android:id="@+id/et_ac2_type" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="类型" android:text="6" android:textSize="12sp" />
+            <EditText android:id="@+id/et_ac2_param" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="参数" android:text="1" android:textSize="12sp" />
+            <EditText android:id="@+id/et_ac2_angle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="角度" android:text="0" android:textSize="12sp" />
+            <Button android:id="@+id/btn_air_control2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="车控2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btn_get_ac" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查空调" />
+            <EditText android:id="@+id/et_adjust_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="档位(3~-3)" android:text="1" android:textSize="12sp" />
+            <Button android:id="@+id/btn_adjust" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="空调调节" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText android:id="@+id/et_temp_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="1加/0减" android:text="1" android:textSize="12sp" />
+            <EditText android:id="@+id/et_temp_val" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="温度" android:text="26" android:textSize="12sp" />
+            <Button android:id="@+id/btn_adjust_temp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="温度调节" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btn_get_seat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查座椅" />
+            <Button android:id="@+id/btn_get_window" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查车窗" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText android:id="@+id/et_power_cmd" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="指令" android:text="0" android:textSize="12sp" />
+            <Button android:id="@+id/btn_power" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="断油电" />
+            <EditText android:id="@+id/et_wolf_param" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="1开/0关" android:text="1" android:textSize="12sp" />
+            <Button android:id="@+id/btn_wolf" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="防狼" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通用透传（输入完整 URL）"
+            android:textSize="11sp"
+            android:layout_marginTop="4dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText android:id="@+id/et_url" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="https://..." android:textSize="12sp" />
+            <Button android:id="@+id/btn_get_raw" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="GET 请求" />
+            <Button android:id="@+id/btn_post_raw" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="POST 请求" />
+        </LinearLayout>
+        </LinearLayout>
+
+        <!-- ============ 日志区 ============ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运行日志"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_clear_log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清空日志" />
+
+        <TextView
+            android:id="@+id/tv_log"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:background="#111111"
+            android:textColor="#33ff66"
+            android:textSize="11sp"
+            android:padding="6dp"
+            android:scrollbars="vertical"
+            android:gravity="top"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</ScrollView>

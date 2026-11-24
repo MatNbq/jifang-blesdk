@@ -1,0 +1,9 @@
+# JitPack 构建配置（Gitee / GitHub 通用）
+# Gradle 8.9 + AGP 8.7 需要 JDK 17，而 JitPack 默认是 JDK 8，必须显式指定
+jdk:
+  - openjdk17
+
+# 只构建并发布 blesdk 库模块，跳过 app 示例模块，加快构建并避免无关失败
+install:
+  - chmod +x gradlew
+  - ./gradlew :blesdk:clean :blesdk:assembleRelease :blesdk:publishReleasePublicationToMavenLocal --no-daemon -x test -x lint
